@@ -2,8 +2,10 @@
 #define BASICCALLBACK_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
 #include <iostream>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
 class BasicCallBack : public QObject
 {

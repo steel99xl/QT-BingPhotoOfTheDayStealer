@@ -10,6 +10,7 @@ void BasicCallBack::test(){
 
     std::cout << "UWU it workded" << std::endl;
 
+    manager = new QNetworkAccessManager(this);
 
     connect(manager, &QNetworkAccessManager::finished, this, &BasicCallBack::replyFinished);
 
@@ -20,9 +21,15 @@ void BasicCallBack::test(){
 
 void BasicCallBack::replyFinished(QNetworkReply *reply){
     if(reply->error() == QNetworkReply::NetworkError::NoError){
-        std::cout << reply->readAll() << std::endl;
+        QString data = (QString)reply->readAll();
+        QByteArray Bdata = data.toLocal8Bit();
+        const char *output = Bdata.data();
+        std::cout << output << std::endl;
     } else{
-        std::cout << reply->errorString() << std::endl;
+        QString data = (QString)reply->errorString();
+        QByteArray Bdata = data.toLocal8Bit();
+        const char *output = Bdata.data();
+        std::cout << output << std::endl;
     }
 
 }
