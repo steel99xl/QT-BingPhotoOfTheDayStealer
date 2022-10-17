@@ -33,6 +33,8 @@ void BasicCallBack::test(){
     std::cout << "Thing Done" << std::endl;
     //std::cout << BaseData.toStdString() << std::endl;
 
+    //return ImageToSteal.FileName.c_str();
+
 }
 
 void BasicCallBack::replyFinished(QNetworkReply *reply){
@@ -50,7 +52,6 @@ void BasicCallBack::replyFinished(QNetworkReply *reply){
 // Yes it just gets the bing homepage...
 std::string BasicCallBack::BingGetter(StolenImage ImageToSteal){
     std::string data;
-    char url[128];
 
     manager = new QNetworkAccessManager(this);
 
@@ -62,23 +63,16 @@ std::string BasicCallBack::BingGetter(StolenImage ImageToSteal){
         QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)ImageToSteal.Url.c_str())));
         connect(Temp, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-
-
         data = (std::string)Temp->readAll().toStdString();
+
     } else {
         QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)BingLink)));
         connect(Temp, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-
-
         data = (std::string)Temp->readAll().toStdString();
     }
 
 
-
-
-
-    //data = (std::string)this->BaseData.toStdString();
     return data;
 }
 
@@ -117,5 +111,23 @@ void BasicCallBack::SaveStolenImage(StolenImage ImageToSteal){
 
     }
 
+}
+
+void BasicCallBack::planForImageTheft()
+{
+    m_ImageToSteal.HasUrl = false;
+    m_ImageToSteal.PageBuffer = BingGetter(m_ImageToSteal);
+
+    m_ImageToSteal.Url = BingPageToWallPaper(m_ImageToSteal);
+
+    m_ImageToSteal.HasUrl = true;
+    m_ImageToSteal.FileName = BingPageToWallPaper(m_ImageToSteal);
+
+    m_ImageToSteal.PageBuffer = BingGetter(m_ImageToSteal);
+}
+
+void BasicCallBack::exicutePlan()
+{
+    SaveStolenImage(m_ImageToSteal);
 }
 

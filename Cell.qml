@@ -16,7 +16,6 @@ Item {
     MouseArea{
         anchors.fill: parent;
         onClicked: {
-            callback.test();
             container.clicked(container.cellColor)
         }
     }

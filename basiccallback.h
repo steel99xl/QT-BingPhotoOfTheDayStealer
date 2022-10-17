@@ -25,6 +25,8 @@ public:
         operator bool(){return HasUrl;}
     };
 
+    StolenImage m_ImageToSteal;
+
     const char *BingLink = "https://www.bing.com/";
 
     QString BaseData;
@@ -37,6 +39,7 @@ public:
 signals:
 
 public slots:
+
     void replyFinished (QNetworkReply *reply);
 
     std::string BingGetter(StolenImage ImageToSteal);
@@ -44,6 +47,12 @@ public slots:
     std::string BingPageToWallPaper(StolenImage ImageToSteal);
 
     void SaveStolenImage(StolenImage ImageToSteal);
+
+    inline QString getImageName(){return m_ImageToSteal.FileName.c_str();}
+
+    void planForImageTheft();
+
+    void exicutePlan();
 
 private:
     QNetworkAccessManager *manager;
