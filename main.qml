@@ -10,6 +10,7 @@ Window {
     id: window;
     minimumWidth: 720
     minimumHeight: 480
+    color: "#555555"
     visible: true
     title: {callback.planForImageTheft();
         qsTr("Bing Photo Of The Day Stealer")}
@@ -23,6 +24,7 @@ Rectangle {
     x: ((window.width - width)/2);
     y: window.height * 0.025;
     color: "pink"
+    radius: 20
 
     Text {
         id: imageText;
@@ -38,10 +40,9 @@ Rectangle {
     Image{
         source: callback.getImageLink();
         anchors.top: firstRect.top; anchors.topMargin: imageText.font.pointSize*1.5;
-        anchors.bottom: firstRect.bottom;
-        anchors.left: firstRect.left;
-        anchors.right: firstRect.right;
-
+        anchors.bottom: firstRect.bottom; anchors.bottomMargin: 10;
+        anchors.left: firstRect.left; anchors.leftMargin: 10;
+        anchors.right: firstRect.right; anchors.rightMargin: 10
 
     }
 
@@ -49,12 +50,13 @@ Rectangle {
 
 Rectangle {
     id: buttonOne;
-    width: (window.width/2) - (window.width * 0.025) ;
+    width: (window.width/2) - (window.width * 0.0375) ;
     height: (window.height - firstRect.height*1.125);
 
     x: window.width * 0.025;
     y: ((firstRect.height*1.085) ) ;
     color : "teal"
+    radius: 20
 
     Text {
         id: buttonOneText;
@@ -67,16 +69,24 @@ Rectangle {
 
     }
 
+    MouseArea{
+        anchors.fill: parent;
+        onClicked: {
+            callback.openSource();
+        }
+    }
+
 }
 
 Rectangle {
     id: buttonTwo;
-    width: (window.width/2) - (window.width * 0.05);
+    width: (window.width/2) - (window.width * 0.0375);
     height: (window.height - firstRect.height*1.125);
 
     x: (buttonOne.width ) + (window.width * 0.05);
     y: (firstRect.height*1.085);
     color : "pink"
+    radius: 20
 
     Text {
         id: buttonTwoText;
