@@ -50,6 +50,8 @@ public slots:
 
     inline QString getImageName(){return m_ImageToSteal.FileName.c_str();}
 
+    inline QString getImageLink(){return m_ImageToSteal.Url.c_str();} // warning can just return bing home page
+
     void planForImageTheft();
 
     void exicutePlan();

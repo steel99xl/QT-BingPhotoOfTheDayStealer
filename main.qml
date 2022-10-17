@@ -22,33 +22,29 @@ Rectangle {
     height: (window.height/1.3) - (window.height * 0.025);
     x: ((window.width - width)/2);
     y: window.height * 0.025;
-    color: "lightgrey"
+    color: "pink"
 
     Text {
-        id: testText;
+        id: imageText;
         text: callback.getImageName();
-        color: "black"
+        color: "teal"
 
-        y: 31
+        y: 0
         anchors.horizontalCenter: firstRect.horizontalCenter
         font.pointSize: (firstRect.width+firstRect.height)/80; font.bold: true
 
     }
 
-    Grid {
-            id: colorPicker
-            x: 20; anchors.bottom: firstRect.bottom; anchors.bottomMargin: 4
-            rows: 2; columns: 4; spacing: 3
+    Image{
+        source: callback.getImageLink();
+        anchors.top: firstRect.top; anchors.topMargin: imageText.font.pointSize*1.5;
+        anchors.bottom: firstRect.bottom;
+        anchors.left: firstRect.left;
+        anchors.right: firstRect.right;
 
-            Cell { cellColor: "red"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "green"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "blue"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "yellow"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "steelblue"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "black"; onClicked: testText.color = cellColor }
-            Cell { cellColor: "white"; onClicked: testText.color = cellColor}
-            Cell { cellColor: "lightgrey"; onClicked: testText.color = cellColor}
-        }
+
+    }
+
 }
 
 Rectangle {
@@ -58,12 +54,12 @@ Rectangle {
 
     x: window.width * 0.025;
     y: ((firstRect.height*1.085) ) ;
-    color : "blue"
+    color : "teal"
 
     Text {
         id: buttonOneText;
         text: "Source Code"
-        color: "black"
+        color: "pink"
 
         anchors.verticalCenter: buttonOne.verticalCenter
         anchors.horizontalCenter: buttonOne.horizontalCenter
@@ -80,12 +76,12 @@ Rectangle {
 
     x: (buttonOne.width ) + (window.width * 0.05);
     y: (firstRect.height*1.085);
-    color : "red"
+    color : "pink"
 
     Text {
         id: buttonTwoText;
         text: "Steal Image"
-        color: "black"
+        color: "teal"
 
         anchors.verticalCenter:  buttonTwo.verticalCenter
         anchors.horizontalCenter: buttonTwo.horizontalCenter
