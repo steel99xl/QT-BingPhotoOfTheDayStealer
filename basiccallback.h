@@ -11,8 +11,6 @@
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QDesktopServices>
-#include <QFile>
-#include <QDataStream>
 
 #include <QImage>
 
@@ -59,7 +57,7 @@ public slots:
 
     void planForImageTheft();
 
-    void exicutePlan();
+    void exicutePlan(QString String);
 
 private:
     QNetworkAccessManager *manager;

@@ -135,8 +135,12 @@ void BasicCallBack::planForImageTheft()
     m_ImageToSteal.PageBuffer = BingGetter(m_ImageToSteal);
 }
 
-void BasicCallBack::exicutePlan()
+void BasicCallBack::exicutePlan(QString String)
 {
+    std::cout << String.toStdString() << std::endl;
+    String = String.mid(7);
+    m_ImageToSteal.FileName = String.toStdString()+"/"+ m_ImageToSteal.FileName;
+    std::cout << m_ImageToSteal.FileName << std::endl;
     SaveStolenImage(m_ImageToSteal);
 }
 

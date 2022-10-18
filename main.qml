@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-
+import QtQuick.Dialogs 1.0
 
 
 
@@ -78,6 +78,9 @@ Rectangle {
 
 }
 
+
+
+
 Rectangle {
     id: buttonTwo;
     width: (window.width/2) - (window.width * 0.0375);
@@ -102,9 +105,27 @@ Rectangle {
     MouseArea{
         anchors.fill: parent;
         onClicked: {
+            fileDialog.open()
             callback.exicutePlan();
         }
     }
+}
+
+
+FileDialog {
+    id: fileDialog
+    title: "Please choose a folder"
+    folder: shortcuts.home
+    selectMultiple: false
+    selectExisting: True
+    selectFolder: True
+    onAccepted: {
+        callback.exicutePlan(fileDialog.folder);
+    }
+    onRejected: {
+        console.log("Canceled")
+    }
+    //Component.onCompleted: visible = true
 }
 
 }
