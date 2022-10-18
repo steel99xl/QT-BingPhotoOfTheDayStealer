@@ -16,8 +16,6 @@ void BasicCallBack::test(){
 
     //wait for connection
 
-    BaseData = "";
-
 
     ImageToSteal.Url = BingPageToWallPaper(ImageToSteal);
     std::cout << "Getting Photo" << std::endl;
@@ -29,21 +27,12 @@ void BasicCallBack::test(){
 
 
 
-    //SaveStolenImage(ImageToSteal);
+    SaveStolenImage(ImageToSteal);
     std::cout << "Thing Done" << std::endl;
     std::cout << ImageToSteal.PageBuffer.length() << std::endl;
     //std::cout << BaseData.toStdString() << std::endl;
 
     //return ImageToSteal.FileName.c_str();
-
-}
-
-void BasicCallBack::replyFinished(QNetworkReply *reply){
-    if(reply->error() == QNetworkReply::NetworkError::NoError){
-        this->BaseData = (QString)reply->readAll();
-    } else{
-        this->BaseData = (QString)reply->errorString();
-    }
 
 }
 
@@ -58,24 +47,20 @@ std::string BasicCallBack::BingGetter(StolenImage ImageToSteal){
 
     manager->setAutoDeleteReplies(true);
 
-    QImage TestImage;
 
     QEventLoop loop;
-    //connect(manager, &QNetworkAccessManager::finished, this, &BasicCallBack::replyFinished);
     if(ImageToSteal){
-        QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)ImageToSteal.Url.c_str())));
-        connect(Temp, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        TestImage.loadFromData(Temp->readAll());
-        TestImage.save(ImageToSteal.FileName.c_str());
+        reply = manager->get(QNetworkRequest(QUrl((QString)ImageToSteal.Url.c_str())));
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-        data = (std::string)Temp->readAll().toStdString();
-
+        this->m_ImageToSteal.QTCompliance.loadFromData(reply->readAll());
+        data = (std::string)reply->readAll().toStdString();
 
     } else {
-        QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)BingLink)));
-        connect(Temp, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        reply = manager->get(QNetworkRequest(QUrl((QString)BingLink)));
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-        data = (std::string)Temp->readAll().toStdString();
+        data = (std::string)reply->readAll().toStdString();
     }
 
 
@@ -103,6 +88,9 @@ std::string BasicCallBack::BingPageToWallPaper(StolenImage ImageToSteal){
 void BasicCallBack::SaveStolenImage(StolenImage ImageToSteal){
     //std::ofstream Contraband;
 
+    //ImageToSteal.QTCompliance.loadFromData(ImageToSteal.Bytes);
+    ImageToSteal.QTCompliance.save(ImageToSteal.FileName.c_str());
+    /*
     QFile file(ImageToSteal.FileName.c_str());
 
     if(!file.open(QIODevice::WriteOnly)){
@@ -113,7 +101,7 @@ void BasicCallBack::SaveStolenImage(StolenImage ImageToSteal){
     out.writeRawData(ImageToSteal.PageBuffer.c_str(), ImageToSteal.PageBuffer.length());
 
     file.close();
-
+    */
 
 
     /*

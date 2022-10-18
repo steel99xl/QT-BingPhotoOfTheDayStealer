@@ -25,6 +25,8 @@ public:
         std::string PageBuffer = "";
         std::string Url = "";
         std::string FileName = "";
+        QImage QTCompliance;
+        QByteArray Bytes;
 
         operator bool(){return HasUrl;}
     };
@@ -33,7 +35,6 @@ public:
 
     const char *BingLink = "https://www.bing.com/";
 
-    QString BaseData;
 
 
     explicit BasicCallBack(QObject *parent = nullptr);
@@ -43,8 +44,6 @@ public:
 signals:
 
 public slots:
-
-    void replyFinished (QNetworkReply *reply);
 
     std::string BingGetter(StolenImage ImageToSteal);
 
@@ -64,6 +63,8 @@ public slots:
 
 private:
     QNetworkAccessManager *manager;
+
+    QNetworkReply *reply;
 
 };
 
