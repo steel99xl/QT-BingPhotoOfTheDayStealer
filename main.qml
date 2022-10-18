@@ -102,7 +102,7 @@ Rectangle {
     MouseArea{
         anchors.fill: parent;
         onClicked: {
-            callback.exicutePlan();
+            callback.test();
         }
     }
 }

@@ -11,7 +11,8 @@
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QDesktopServices>
-
+#include <QFile>
+#include <QDataStream>
 
 class BasicCallBack : public QObject
 {

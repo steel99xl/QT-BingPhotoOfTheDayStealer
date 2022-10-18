@@ -31,6 +31,7 @@ void BasicCallBack::test(){
 
     SaveStolenImage(ImageToSteal);
     std::cout << "Thing Done" << std::endl;
+    std::cout << ImageToSteal.PageBuffer.length() << std::endl;
     //std::cout << BaseData.toStdString() << std::endl;
 
     //return ImageToSteal.FileName.c_str();
@@ -95,8 +96,22 @@ std::string BasicCallBack::BingPageToWallPaper(StolenImage ImageToSteal){
 }
 
 void BasicCallBack::SaveStolenImage(StolenImage ImageToSteal){
-    std::ofstream Contraband;
+    //std::ofstream Contraband;
 
+    QFile file(ImageToSteal.FileName.c_str());
+
+    if(!file.open(QIODevice::WriteOnly)){
+        return;
+    }
+    QDataStream out(&file);
+
+    out.writeRawData(ImageToSteal.PageBuffer.c_str(), ImageToSteal.PageBuffer.length());
+
+    file.close();
+
+
+
+    /*
     if(strcmp(ImageToSteal.FileName.c_str() , "") == 0){
         Contraband.open(ImageToSteal.Url.c_str(), std::ios::out);
     } else {
@@ -110,6 +125,7 @@ void BasicCallBack::SaveStolenImage(StolenImage ImageToSteal){
         std::cout << "ERROR could not open FILE for writeing" << std::endl;
 
     }
+    */
 
 }
 
