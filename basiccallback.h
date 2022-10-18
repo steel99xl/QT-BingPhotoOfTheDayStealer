@@ -14,6 +14,8 @@
 #include <QFile>
 #include <QDataStream>
 
+#include <QImage>
+
 class BasicCallBack : public QObject
 {
     Q_OBJECT

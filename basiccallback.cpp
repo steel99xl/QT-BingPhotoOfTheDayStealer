@@ -29,7 +29,7 @@ void BasicCallBack::test(){
 
 
 
-    SaveStolenImage(ImageToSteal);
+    //SaveStolenImage(ImageToSteal);
     std::cout << "Thing Done" << std::endl;
     std::cout << ImageToSteal.PageBuffer.length() << std::endl;
     //std::cout << BaseData.toStdString() << std::endl;
@@ -58,13 +58,18 @@ std::string BasicCallBack::BingGetter(StolenImage ImageToSteal){
 
     manager->setAutoDeleteReplies(true);
 
+    QImage TestImage;
+
     QEventLoop loop;
     //connect(manager, &QNetworkAccessManager::finished, this, &BasicCallBack::replyFinished);
     if(ImageToSteal){
         QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)ImageToSteal.Url.c_str())));
         connect(Temp, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        TestImage.loadFromData(Temp->readAll());
+        TestImage.save(ImageToSteal.FileName.c_str());
         loop.exec();
         data = (std::string)Temp->readAll().toStdString();
+
 
     } else {
         QNetworkReply *Temp = manager->get(QNetworkRequest(QUrl((QString)BingLink)));
