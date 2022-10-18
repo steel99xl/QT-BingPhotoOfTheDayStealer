@@ -117,8 +117,8 @@ FileDialog {
     title: "Please choose a folder"
     folder: shortcuts.home
     selectMultiple: false
-    selectExisting: True
-    selectFolder: True
+    selectExisting: true
+    selectFolder: true
     onAccepted: {
         callback.exicutePlan(fileDialog.folder);
     }
